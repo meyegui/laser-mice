@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://bynpjr18b2led"]
+
+[ext_resource type="Script" path="res://scripts/cheese.gd" id="1_xr8c0"]
+[ext_resource type="Texture2D" uid="uid://cpjfdk5135yui" path="res://sprites/Cheese.png" id="2_40bfi"]
+
+[sub_resource type="Curve" id="Curve_rq1h0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_bx2ry"]
+colors = PackedColorArray(1, 0.709804, 0, 1, 1, 1, 1, 1)
+
+[node name="Cheese" type="Area2D"]
+collision_layer = 4
+script = ExtResource("1_xr8c0")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 50
+emission_shape = 3
+emission_rect_extents = Vector2(35, 50)
+direction = Vector2(2.08165e-12, 2.08165e-12)
+spread = 180.0
+gravity = Vector2(2.08165e-12, 2.08165e-12)
+initial_velocity_min = 40.0
+initial_velocity_max = 80.0
+angular_velocity_min = -100.0
+angular_velocity_max = 100.0
+orbit_velocity_min = -0.05
+orbit_velocity_max = 0.05
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_rq1h0")
+color_ramp = SubResource("Gradient_bx2ry")
+
+[node name="Illustration" type="Node2D" parent="."]
+scale = Vector2(0.333, 0.333)
+
+[node name="Sprite2D" type="Sprite2D" parent="Illustration"]
+texture = ExtResource("2_40bfi")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-24, -28, 2, -45, 23, -55, 30, -38, 31, -21, 31, 11, 27, 45, -34, 55, -36, -4)

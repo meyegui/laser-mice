@@ -1,0 +1,92 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2wkc4ex1mueg"]
+
+[ext_resource type="Texture2D" uid="uid://c31igb4u0subx" path="res://sprites/Laser-Hexagons-Background.jpg" id="1_ehr4c"]
+[ext_resource type="PackedScene" uid="uid://cyihqhuv8y634" path="res://scenes/laser_mouse.tscn" id="1_r7qp5"]
+[ext_resource type="PackedScene" uid="uid://bynpjr18b2led" path="res://scenes/cheese.tscn" id="3_6wcfd"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bakj0"]
+
+[node name="Level01" type="Node2D"]
+
+[node name="Background" type="Node2D" parent="."]
+visible = false
+metadata/_edit_lock_ = true
+
+[node name="Tile1" type="Sprite2D" parent="Background"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+texture = ExtResource("1_ehr4c")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Tile2" type="Sprite2D" parent="Background"]
+position = Vector2(700, 2.08165e-12)
+texture = ExtResource("1_ehr4c")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Tile3" type="Sprite2D" parent="Background"]
+position = Vector2(1400, 2.08165e-12)
+texture = ExtResource("1_ehr4c")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Tile4" type="Sprite2D" parent="Background"]
+position = Vector2(2.08165e-12, 700)
+texture = ExtResource("1_ehr4c")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Tile5" type="Sprite2D" parent="Background"]
+position = Vector2(700, 700)
+texture = ExtResource("1_ehr4c")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Tile6" type="Sprite2D" parent="Background"]
+position = Vector2(1400, 700)
+texture = ExtResource("1_ehr4c")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Guigui" parent="." instance=ExtResource("1_r7qp5")]
+position = Vector2(250, 790)
+rotation = 1.5708
+
+[node name="Pépette" parent="." instance=ExtResource("1_r7qp5")]
+position = Vector2(1670, 250)
+rotation = -1.5708
+player_id = 1
+
+[node name="WorldBoundaryNorth" type="StaticBody2D" parent="."]
+position = Vector2(960, 2.08165e-12)
+rotation = 3.14159
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaryNorth"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+shape = SubResource("WorldBoundaryShape2D_bakj0")
+
+[node name="WorldBoundarySouth" type="StaticBody2D" parent="."]
+position = Vector2(960, 1080)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundarySouth"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+shape = SubResource("WorldBoundaryShape2D_bakj0")
+
+[node name="WorldBoundaryEast" type="StaticBody2D" parent="."]
+position = Vector2(1920, 540)
+rotation = -1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaryEast"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+shape = SubResource("WorldBoundaryShape2D_bakj0")
+
+[node name="WorldBoundaryWest" type="StaticBody2D" parent="."]
+position = Vector2(2.08165e-12, 540)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaryWest"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+shape = SubResource("WorldBoundaryShape2D_bakj0")
+
+[node name="Cheese" parent="." instance=ExtResource("3_6wcfd")]
+position = Vector2(960, 540)
