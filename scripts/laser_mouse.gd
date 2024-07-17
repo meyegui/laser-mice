@@ -8,6 +8,9 @@ const DYING_SPEED: float = 4.0
 
 @export var player_id: int = 0
 
+var spawn_point: Vector2
+var spawn_rotation: float
+
 var axes: Dictionary
 
 var health: int = 3:
@@ -35,6 +38,10 @@ var last_hurt: int = -DAMAGE_THRESHOLD
 @onready var laser_beam: PackedScene = load("res://scenes/laser_beam.tscn")
 
 func _ready() -> void:
+	# Record spawn position
+	spawn_point = global_position
+	spawn_rotation = global_rotation
+
 	# Set up axes
 	for axis: String in ["up", "left", "down", "right"]:
 		axes[axis] = "player%d_%s" % [player_id, axis]
@@ -71,17 +78,7 @@ func _physics_process(delta: float) -> void:
 
 	# deadmau5
 	if health == 0:
-		var new_scale := move_toward(scale.x, 0, DYING_SPEED * delta)
-		scale = Vector2(new_scale, new_scale)
-
-		if (scale.x <= 0.05 or scale.y <= 0.05):
-			queue_free()
-
-			print("%s was killed by %s using %s!" % [
-				name,
-				killed_by,
-				killed_with,
-			])
+		die(delta)
 
 	move_and_slide()
 
@@ -140,3 +137,34 @@ func hurt(attacker: String, weapon: String, power: int) -> void:
 	await get_tree().create_timer(DAMAGE_THRESHOLD / 1000.0).timeout
 	animation.play("RESET")
 	hurting = false
+
+func die(delta: float) -> void:
+	var new_scale := move_toward(scale.x, 0, DYING_SPEED * delta)
+	scale = Vector2(new_scale, new_scale)
+
+	if (scale.x <= 0.05 or scale.y <= 0.05):
+		print("%s was killed by %s using %s!" % [
+			name,
+			killed_by,
+			killed_with,
+		])
+		queue_free()
+
+		# Respawn
+		var laser_mouse := LaserMouse.spawn(player_id, spawn_point, spawn_rotation, name)
+		get_tree().current_scene.add_child(laser_mouse)
+
+@warning_ignore("shadowed_variable", "shadowed_variable_base_class")
+static func spawn(
+	player_id: int,
+	position: Vector2,
+	rotation: float,
+	name: String
+) -> LaserMouse:
+	var new_mouse: LaserMouse = load("res://scenes/laser_mouse.tscn").instantiate()
+	new_mouse.player_id = player_id
+	new_mouse.global_position = position
+	new_mouse.global_rotation = rotation
+	new_mouse.name = name
+
+	return new_mouse
