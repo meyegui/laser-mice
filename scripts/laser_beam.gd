@@ -4,7 +4,7 @@ extends Area2D
 const SPEED := 40
 const POWER := 1
 
-var emitter: LaserMouse
+var emitter: String
 var direction: Vector2
 
 @onready var timer: Timer = $Timer
@@ -15,9 +15,6 @@ func _ready() -> void:
 	# Connect signals
 	body_entered.connect(on_body_entered)
 	timer.timeout.connect(on_timer_timeout)
-
-	# Match mouse color
-	modulate = emitter.laser_source.modulate
 
 	# Set movement direction
 	var orientation := rotation - deg_to_rad(90)

@@ -19,7 +19,7 @@ var health: int = 3:
 
 var hurting: bool = false
 
-var killed_by: Node2D
+var killed_by: String
 var killed_with: String
 
 var cheese: Cheese
@@ -77,12 +77,11 @@ func _physics_process(delta: float) -> void:
 		if (scale.x <= 0.05 or scale.y <= 0.05):
 			queue_free()
 
-			if killed_by != null:
-				print("%s was killed by %s using %s!" % [
-					name,
-					killed_by.name,
-					killed_with,
-				])
+			print("%s was killed by %s using %s!" % [
+				name,
+				killed_by,
+				killed_with,
+			])
 
 	move_and_slide()
 
@@ -106,13 +105,14 @@ func shoot(force: bool=false) -> void:
 
 	# Instantiate laser beam
 	var pew_pew: LaserBeam = laser_beam.instantiate()
-	pew_pew.emitter = self
+	pew_pew.emitter = self.name
+	pew_pew.modulate = laser_source.modulate # match mouse color
 	pew_pew.global_position = laser_source.global_position
 	pew_pew.rotation = rotation
 	get_tree().current_scene.add_child(pew_pew)
 	last_shot = now
 
-func hurt(attacker: Node2D, weapon: String, power: int) -> void:
+func hurt(attacker: String, weapon: String, power: int) -> void:
 	var now := Time.get_ticks_msec()
 	if now - last_hurt < DAMAGE_THRESHOLD:
 		return
