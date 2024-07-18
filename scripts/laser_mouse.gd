@@ -2,7 +2,7 @@ class_name LaserMouse
 extends CharacterBody2D
 
 const SPEED: float = 480.0 # px/s
-const SHOOT_THRESHOLD: int = 150 # milliseconds
+const SHOOT_RATE: int = 150 # milliseconds
 const DAMAGE_THRESHOLD: int = 1500 # milliseconds
 const DYING_SPEED: float = 4.0
 
@@ -27,7 +27,7 @@ var killed_with: String
 
 var cheese: Cheese
 
-var last_shot: int = -SHOOT_THRESHOLD
+var last_shot: int = -SHOOT_RATE
 var last_hurt: int = -DAMAGE_THRESHOLD
 
 @onready var illustration: Node2D = $Illustration
@@ -49,8 +49,10 @@ func _ready() -> void:
 	# Color HP & lasers according to player ID
 	var color: Color
 	match player_id:
-		0: color = Color(0.3, 0.3, 1)
-		1: color = Color(1, 0.3, 0.3)
+		0: color = Color(0.3, 0.3, 1.0) # blue
+		1: color = Color(1.0, 0.3, 0.3) # red
+		2: color = Color(0.3, 1.0, 0.3) # green
+		3: color = Color(1.0, 0.3, 1.0) # fuchsia
 
 	# illustration.modulate = color
 	hp.modulate = color
@@ -94,7 +96,13 @@ func _process(_delta: float) -> void:
 
 func shoot(force: bool=false) -> void:
 	var now := Time.get_ticks_msec()
-	if (not force) and (now - last_shot < SHOOT_THRESHOLD):
+
+	# Limit the shooting rate
+	if (not force) and (now - last_shot < SHOOT_RATE):
+		return
+
+	# Mice can't shoot while holding the cheese
+	if cheese != null:
 		return
 
 	# Play "pew-pew!" sound

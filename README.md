@@ -8,7 +8,7 @@
 - [x] The mice can shoot lasers to kill each other.
 - [x] The mice have 3 HP. They die when their HP reach zero.
 - [x] When a mouse dies, it respawns at its starting point.
-- [ ] When a mouse holds the cheese, it can’t shoot lasers anymore.
+- [x] When a mouse holds the cheese, it can’t shoot lasers anymore.
 - [ ] When a mouse dies, the cheese is either dropped in place and can be picked
 	  up by the other mouse (variant 1), or it respawns in a random room
 	  (variant 2).
