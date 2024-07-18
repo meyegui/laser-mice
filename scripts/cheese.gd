@@ -16,7 +16,7 @@ func on_body_entered(body: Node2D) -> void:
 	if holder == null:
 		print("%s picked up the cheese" % body.name)
 		holder = body
-		reparent(holder)
+		reparent.call_deferred(holder)
 		holder.cheese = self
 
 func drop() -> void:
@@ -26,4 +26,4 @@ func drop() -> void:
 	print("%s dropped the cheese" % holder.name)
 	holder.cheese = null
 	holder = null
-	reparent(get_tree().current_scene)
+	reparent.call_deferred(get_tree().current_scene)

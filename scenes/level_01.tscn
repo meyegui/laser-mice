@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2wkc4ex1mueg"]
+[gd_scene load_steps=6 format=3 uid="uid://d2wkc4ex1mueg"]
 
 [ext_resource type="Texture2D" uid="uid://c31igb4u0subx" path="res://sprites/Laser-Hexagons-Background.jpg" id="1_ehr4c"]
 [ext_resource type="PackedScene" uid="uid://cyihqhuv8y634" path="res://scenes/laser_mouse.tscn" id="1_r7qp5"]
+[ext_resource type="PackedScene" uid="uid://bdjjpsdtuetdn" path="res://scenes/home.tscn" id="2_j7cyh"]
 [ext_resource type="PackedScene" uid="uid://bynpjr18b2led" path="res://scenes/cheese.tscn" id="3_6wcfd"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bakj0"]
@@ -48,45 +49,59 @@ texture = ExtResource("1_ehr4c")
 centered = false
 metadata/_edit_lock_ = true
 
-[node name="Guigui" parent="." instance=ExtResource("1_r7qp5")]
+[node name="Homes" type="Node2D" parent="."]
+
+[node name="Home0" parent="Homes" instance=ExtResource("2_j7cyh")]
+position = Vector2(250, 790)
+player_id = 0
+
+[node name="Home1" parent="Homes" instance=ExtResource("2_j7cyh")]
+position = Vector2(1670, 250)
+player_id = 1
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="Guigui" parent="Players" instance=ExtResource("1_r7qp5")]
 position = Vector2(250, 790)
 rotation = 1.5708
 
-[node name="Pépette" parent="." instance=ExtResource("1_r7qp5")]
+[node name="Pépette" parent="Players" instance=ExtResource("1_r7qp5")]
 position = Vector2(1670, 250)
 rotation = -1.5708
 player_id = 1
 
-[node name="WorldBoundaryNorth" type="StaticBody2D" parent="."]
+[node name="Cheese" parent="." instance=ExtResource("3_6wcfd")]
+position = Vector2(960, 540)
+
+[node name="WorldBoundaries" type="Node2D" parent="."]
+
+[node name="WorldBoundaryNorth" type="StaticBody2D" parent="WorldBoundaries"]
 position = Vector2(960, 2.08165e-12)
 rotation = 3.14159
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaryNorth"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaries/WorldBoundaryNorth"]
 position = Vector2(2.08165e-12, 2.08165e-12)
 shape = SubResource("WorldBoundaryShape2D_bakj0")
 
-[node name="WorldBoundarySouth" type="StaticBody2D" parent="."]
+[node name="WorldBoundarySouth" type="StaticBody2D" parent="WorldBoundaries"]
 position = Vector2(960, 1080)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundarySouth"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaries/WorldBoundarySouth"]
 position = Vector2(2.08165e-12, 2.08165e-12)
 shape = SubResource("WorldBoundaryShape2D_bakj0")
 
-[node name="WorldBoundaryEast" type="StaticBody2D" parent="."]
+[node name="WorldBoundaryEast" type="StaticBody2D" parent="WorldBoundaries"]
 position = Vector2(1920, 540)
 rotation = -1.5708
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaryEast"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaries/WorldBoundaryEast"]
 position = Vector2(2.08165e-12, 2.08165e-12)
 shape = SubResource("WorldBoundaryShape2D_bakj0")
 
-[node name="WorldBoundaryWest" type="StaticBody2D" parent="."]
+[node name="WorldBoundaryWest" type="StaticBody2D" parent="WorldBoundaries"]
 position = Vector2(2.08165e-12, 540)
 rotation = 1.5708
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaryWest"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaries/WorldBoundaryWest"]
 position = Vector2(2.08165e-12, 2.08165e-12)
 shape = SubResource("WorldBoundaryShape2D_bakj0")
-
-[node name="Cheese" parent="." instance=ExtResource("3_6wcfd")]
-position = Vector2(960, 540)

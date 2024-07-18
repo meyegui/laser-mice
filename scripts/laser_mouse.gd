@@ -47,12 +47,7 @@ func _ready() -> void:
 		axes[axis] = "player%d_%s" % [player_id, axis]
 
 	# Color HP & lasers according to player ID
-	var color: Color
-	match player_id:
-		0: color = Color(0.3, 0.3, 1.0) # blue
-		1: color = Color(1.0, 0.3, 0.3) # red
-		2: color = Color(0.3, 1.0, 0.3) # green
-		3: color = Color(1.0, 0.3, 1.0) # fuchsia
+	var color := Common.get_color(player_id)
 
 	# illustration.modulate = color
 	hp.modulate = color
@@ -74,25 +69,32 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y = move_toward(velocity.y, 0, SPEED)
 
-	# Make the mouse look in the right direction
-	if not direction.is_zero_approx():
-		rotation = direction.angle() + deg_to_rad(90)
-
 	# deadmau5
 	if health == 0:
 		die(delta)
 
+	if Common.game_over:
+		return
+
+	# Make the mouse look in the right direction
+	if not direction.is_zero_approx():
+		rotation = direction.angle() + deg_to_rad(90)
+
+	# Make the mouse move
 	move_and_slide()
 
 func _process(_delta: float) -> void:
+	# Fix positioning of health points
+	hp.global_rotation = 0
+
+	if Common.game_over:
+		return
+
 	var shoot_action := "player%d_shoot" % player_id
 	if Input.is_action_just_pressed(shoot_action):
 		shoot(true)
 	elif Input.is_action_pressed(shoot_action):
 		shoot()
-
-	# Fix positioning of health points
-	hp.global_rotation = 0
 
 func shoot(force: bool=false) -> void:
 	var now := Time.get_ticks_msec()
