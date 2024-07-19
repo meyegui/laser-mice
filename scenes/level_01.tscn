@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2wkc4ex1mueg"]
+[gd_scene load_steps=5 format=3 uid="uid://d2wkc4ex1mueg"]
 
-[ext_resource type="Texture2D" uid="uid://c31igb4u0subx" path="res://sprites/Laser-Hexagons-Background.jpg" id="1_ehr4c"]
 [ext_resource type="PackedScene" uid="uid://cyihqhuv8y634" path="res://scenes/laser_mouse.tscn" id="1_r7qp5"]
 [ext_resource type="PackedScene" uid="uid://bdjjpsdtuetdn" path="res://scenes/home.tscn" id="2_j7cyh"]
 [ext_resource type="PackedScene" uid="uid://bynpjr18b2led" path="res://scenes/cheese.tscn" id="3_6wcfd"]
@@ -9,51 +8,10 @@
 
 [node name="Level01" type="Node2D"]
 
-[node name="Background" type="Node2D" parent="."]
-visible = false
-metadata/_edit_lock_ = true
-
-[node name="Tile1" type="Sprite2D" parent="Background"]
-position = Vector2(2.08165e-12, 2.08165e-12)
-texture = ExtResource("1_ehr4c")
-centered = false
-metadata/_edit_lock_ = true
-
-[node name="Tile2" type="Sprite2D" parent="Background"]
-position = Vector2(700, 2.08165e-12)
-texture = ExtResource("1_ehr4c")
-centered = false
-metadata/_edit_lock_ = true
-
-[node name="Tile3" type="Sprite2D" parent="Background"]
-position = Vector2(1400, 2.08165e-12)
-texture = ExtResource("1_ehr4c")
-centered = false
-metadata/_edit_lock_ = true
-
-[node name="Tile4" type="Sprite2D" parent="Background"]
-position = Vector2(2.08165e-12, 700)
-texture = ExtResource("1_ehr4c")
-centered = false
-metadata/_edit_lock_ = true
-
-[node name="Tile5" type="Sprite2D" parent="Background"]
-position = Vector2(700, 700)
-texture = ExtResource("1_ehr4c")
-centered = false
-metadata/_edit_lock_ = true
-
-[node name="Tile6" type="Sprite2D" parent="Background"]
-position = Vector2(1400, 700)
-texture = ExtResource("1_ehr4c")
-centered = false
-metadata/_edit_lock_ = true
-
 [node name="Homes" type="Node2D" parent="."]
 
 [node name="Home0" parent="Homes" instance=ExtResource("2_j7cyh")]
 position = Vector2(250, 790)
-player_id = 0
 
 [node name="Home1" parent="Homes" instance=ExtResource("2_j7cyh")]
 position = Vector2(1670, 250)
