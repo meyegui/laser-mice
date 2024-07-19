@@ -26,4 +26,4 @@ func drop() -> void:
 	print("%s dropped the cheese" % holder.name)
 	holder.cheese = null
 	holder = null
-	reparent.call_deferred(get_tree().current_scene)
+	reparent.call_deferred(Common.level)

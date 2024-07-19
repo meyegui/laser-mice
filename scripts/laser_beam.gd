@@ -24,6 +24,10 @@ func _physics_process(_delta: float) -> void:
 	position += direction * SPEED
 
 func on_body_entered(body: Node2D) -> void:
+	if body is TileMap:
+		queue_free()
+		return
+
 	if not body is LaserMouse:
 		return
 

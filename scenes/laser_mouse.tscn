@@ -145,6 +145,6 @@ libraries = {
 "": SubResource("AnimationLibrary_cokkn")
 }
 
-[node name="PewSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+[node name="PewSoundPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_0hen2")
 bus = &"Sound FX"

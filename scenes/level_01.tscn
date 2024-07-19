@@ -1,10 +1,35 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2wkc4ex1mueg"]
+[gd_scene load_steps=7 format=3 uid="uid://d2wkc4ex1mueg"]
 
 [ext_resource type="PackedScene" uid="uid://cyihqhuv8y634" path="res://scenes/laser_mouse.tscn" id="1_r7qp5"]
 [ext_resource type="PackedScene" uid="uid://bdjjpsdtuetdn" path="res://scenes/home.tscn" id="2_j7cyh"]
 [ext_resource type="PackedScene" uid="uid://bynpjr18b2led" path="res://scenes/cheese.tscn" id="3_6wcfd"]
+[ext_resource type="Texture2D" uid="uid://dg83j2b27m6jo" path="res://sprites/Tile-Set.png" id="4_0uynl"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bakj0"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_duf1v"]
+texture = ExtResource("4_0uynl")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_fjqfe"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 9
+sources/1 = SubResource("TileSetAtlasSource_duf1v")
 
 [node name="Level01" type="Node2D"]
 
@@ -31,35 +56,7 @@ player_id = 1
 [node name="Cheese" parent="." instance=ExtResource("3_6wcfd")]
 position = Vector2(960, 540)
 
-[node name="WorldBoundaries" type="Node2D" parent="."]
-
-[node name="WorldBoundaryNorth" type="StaticBody2D" parent="WorldBoundaries"]
-position = Vector2(960, 2.08165e-12)
-rotation = 3.14159
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaries/WorldBoundaryNorth"]
-position = Vector2(2.08165e-12, 2.08165e-12)
-shape = SubResource("WorldBoundaryShape2D_bakj0")
-
-[node name="WorldBoundarySouth" type="StaticBody2D" parent="WorldBoundaries"]
-position = Vector2(960, 1080)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaries/WorldBoundarySouth"]
-position = Vector2(2.08165e-12, 2.08165e-12)
-shape = SubResource("WorldBoundaryShape2D_bakj0")
-
-[node name="WorldBoundaryEast" type="StaticBody2D" parent="WorldBoundaries"]
-position = Vector2(1920, 540)
-rotation = -1.5708
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaries/WorldBoundaryEast"]
-position = Vector2(2.08165e-12, 2.08165e-12)
-shape = SubResource("WorldBoundaryShape2D_bakj0")
-
-[node name="WorldBoundaryWest" type="StaticBody2D" parent="WorldBoundaries"]
-position = Vector2(2.08165e-12, 540)
-rotation = 1.5708
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundaries/WorldBoundaryWest"]
-position = Vector2(2.08165e-12, 2.08165e-12)
-shape = SubResource("WorldBoundaryShape2D_bakj0")
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_fjqfe")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 1, 0, 65536, 1, 0, 131072, 1, 0, 196608, 1, 0, 262144, 1, 0, 327680, 1, 0, 393216, 1, 0, 458752, 1, 0, 524288, 1, 0, 589824, 1, 0, 655360, 1, 0, 720896, 1, 0, 786432, 1, 0, 851968, 1, 0, 917504, 1, 0, 983040, 1, 0, 1048576, 1, 0, 1114112, 1, 0, 1179648, 1, 0, 1245184, 1, 0, 1310720, 1, 0, 1376256, 1, 0, 1441792, 1, 0, 1507328, 1, 0, 1572864, 1, 0, 1638400, 1, 0, 1703936, 1, 0, 1769472, 1, 0, 1835008, 1, 0, 1900544, 1, 0, 1966080, 1, 0, 2031616, 1, 0, 2097152, 1, 0, 2162688, 1, 0, 1, 1, 0, 2162689, 1, 0, 2, 1, 0, 2162690, 1, 0, 3, 1, 0, 2162691, 1, 0, 4, 1, 0, 2162692, 1, 0, 5, 1, 0, 2162693, 1, 0, 6, 1, 0, 2162694, 1, 0, 7, 1, 0, 2162695, 1, 0, 8, 1, 0, 2162696, 1, 0, 9, 1, 0, 2162697, 1, 0, 10, 1, 0, 2162698, 1, 0, 11, 1, 0, 2162699, 1, 0, 12, 1, 0, 2162700, 1, 0, 13, 1, 0, 2162701, 1, 0, 14, 1, 0, 2162702, 1, 0, 15, 1, 0, 2162703, 1, 0, 16, 1, 0, 2162704, 1, 0, 17, 1, 0, 2162705, 1, 0, 18, 1, 0, 2162706, 1, 0, 19, 1, 0, 2162707, 1, 0, 20, 1, 0, 2162708, 1, 0, 21, 1, 0, 2162709, 1, 0, 22, 1, 0, 2162710, 1, 0, 23, 1, 0, 2162711, 1, 0, 24, 1, 0, 2162712, 1, 0, 25, 1, 0, 2162713, 1, 0, 26, 1, 0, 2162714, 1, 0, 27, 1, 0, 2162715, 1, 0, 28, 1, 0, 2162716, 1, 0, 29, 1, 0, 2162717, 1, 0, 30, 1, 0, 2162718, 1, 0, 31, 1, 0, 2162719, 1, 0, 32, 1, 0, 2162720, 1, 0, 33, 1, 0, 2162721, 1, 0, 34, 1, 0, 2162722, 1, 0, 35, 1, 0, 2162723, 1, 0, 36, 1, 0, 2162724, 1, 0, 37, 1, 0, 2162725, 1, 0, 38, 1, 0, 2162726, 1, 0, 39, 1, 0, 2162727, 1, 0, 40, 1, 0, 2162728, 1, 0, 41, 1, 0, 2162729, 1, 0, 42, 1, 0, 2162730, 1, 0, 43, 1, 0, 2162731, 1, 0, 44, 1, 0, 2162732, 1, 0, 45, 1, 0, 2162733, 1, 0, 46, 1, 0, 2162734, 1, 0, 47, 1, 0, 2162735, 1, 0, 48, 1, 0, 2162736, 1, 0, 49, 1, 0, 2162737, 1, 0, 50, 1, 0, 2162738, 1, 0, 51, 1, 0, 2162739, 1, 0, 52, 1, 0, 2162740, 1, 0, 53, 1, 0, 2162741, 1, 0, 54, 1, 0, 2162742, 1, 0, 55, 1, 0, 2162743, 1, 0, 56, 1, 0, 2162744, 1, 0, 57, 1, 0, 2162745, 1, 0, 58, 1, 0, 2162746, 1, 0, 59, 1, 0, 65595, 1, 0, 131131, 1, 0, 196667, 1, 0, 262203, 1, 0, 327739, 1, 0, 393275, 1, 0, 458811, 1, 0, 524347, 1, 0, 589883, 1, 0, 655419, 1, 0, 720955, 1, 0, 786491, 1, 0, 852027, 1, 0, 917563, 1, 0, 983099, 1, 0, 1048635, 1, 0, 1114171, 1, 0, 1179707, 1, 0, 1245243, 1, 0, 1310779, 1, 0, 1376315, 1, 0, 1441851, 1, 0, 1507387, 1, 0, 1572923, 1, 0, 1638459, 1, 0, 1703995, 1, 0, 1769531, 1, 0, 1835067, 1, 0, 1900603, 1, 0, 1966139, 1, 0, 2031675, 1, 0, 2097211, 1, 0, 2162747, 1, 0, 65556, 1, 0, 131092, 1, 0, 196628, 1, 0, 262164, 1, 0, 327700, 1, 0, 393236, 1, 0, 458772, 1, 0, 524308, 1, 0, 589844, 1, 0, 655380, 1, 0, 720916, 1, 0, 786452, 1, 0, 851988, 1, 0, 917524, 1, 0, 1703956, 1, 0, 1769492, 1, 0, 1835028, 1, 0, 1900564, 1, 0, 1966100, 1, 0, 2031636, 1, 0, 2097172, 1, 0, 2097191, 1, 0, 2031655, 1, 0, 1966119, 1, 0, 1900583, 1, 0, 1835047, 1, 0, 1769511, 1, 0, 1703975, 1, 0, 1638439, 1, 0, 1572903, 1, 0, 1507367, 1, 0, 1441831, 1, 0, 1376295, 1, 0, 1310759, 1, 0, 1245223, 1, 0, 327719, 1, 0, 262183, 1, 0, 196647, 1, 0, 131111, 1, 0, 65575, 1, 0, 1179668, 1, 0, 1114132, 1, 0, 1048596, 1, 0, 983060, 1, 0, 983079, 1, 0, 1048615, 1, 0, 1114151, 1, 0, 1179687, 1, 0)

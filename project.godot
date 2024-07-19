@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="LaserMice"
-run/main_scene="res://scenes/level_01.tscn"
+run/main_scene="res://scenes/game.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
@@ -113,6 +113,7 @@ player1_shoot={
 2d_physics/layer_1="Players"
 2d_physics/layer_2="Fire"
 2d_physics/layer_3="Pickable"
+2d_physics/layer_4="Walls"
 
 [rendering]
 

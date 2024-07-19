@@ -2,6 +2,7 @@
 extends Node
 
 var game_over: bool = false
+var level: Node2D
 
 func get_color(player_id: int) -> Color:
 	var color: Color

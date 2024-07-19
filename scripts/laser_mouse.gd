@@ -34,7 +34,7 @@ var last_hurt: int = -DAMAGE_THRESHOLD
 @onready var laser_source: Node2D = $LaserSource
 @onready var hp: Node2D = $HP
 @onready var animation: AnimationPlayer = $AnimationPlayer
-@onready var pew_sound_player: AudioStreamPlayer2D = $PewSoundPlayer
+@onready var pew_sound_player: AudioStreamPlayer = $PewSoundPlayer
 @onready var laser_beam: PackedScene = load("res://scenes/laser_beam.tscn")
 
 func _ready() -> void:
@@ -116,7 +116,7 @@ func shoot(force: bool=false) -> void:
 	pew_pew.modulate = laser_source.modulate # match mouse color
 	pew_pew.global_position = laser_source.global_position
 	pew_pew.rotation = rotation
-	get_tree().current_scene.add_child(pew_pew)
+	Common.level.add_child(pew_pew)
 	last_shot = now
 
 func hurt(attacker: String, weapon: String, power: int) -> void:
@@ -162,7 +162,7 @@ func die(delta: float) -> void:
 
 		# Respawn
 		var laser_mouse := LaserMouse.spawn(player_id, spawn_point, spawn_rotation, name)
-		get_tree().current_scene.add_child(laser_mouse)
+		Common.level.add_child(laser_mouse)
 
 @warning_ignore("shadowed_variable", "shadowed_variable_base_class")
 static func spawn(
