@@ -158,11 +158,12 @@ func die(delta: float) -> void:
 			killed_by,
 			killed_with,
 		])
-		queue_free()
 
 		# Respawn
-		var laser_mouse := LaserMouse.spawn(player_id, spawn_point, spawn_rotation, name)
-		Common.level.add_child(laser_mouse)
+		global_position = spawn_point
+		global_rotation = spawn_rotation
+		health = 3
+		scale = Vector2(1, 1)
 
 @warning_ignore("shadowed_variable", "shadowed_variable_base_class")
 static func spawn(
