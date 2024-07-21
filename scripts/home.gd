@@ -35,3 +35,4 @@ func on_area_entered(area: Area2D) -> void:
 	game_over_screen.winner_name = area.holder.name
 	game_over_screen.winner_id = area.holder.player_id
 	get_tree().current_scene.add_child(game_over_screen)
+	game_over_screen.emit_boom()

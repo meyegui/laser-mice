@@ -24,3 +24,8 @@ func on_play_again_pressed() -> void:
 
 func on_quit_pressed() -> void:
 	get_tree().quit()
+
+func emit_boom() -> void:
+	$Boom1.emitting = true
+	$Boom2.emitting = true
+	$Boom3.emitting = true
