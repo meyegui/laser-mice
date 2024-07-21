@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://dut4qwhcs742a"]
+
+[ext_resource type="Script" path="res://scripts/start_screen.gd" id="1_tqsle"]
+[ext_resource type="Texture2D" uid="uid://ctlgkdcyw6qmb" path="res://sprites/Laser-Mice-Logo.png" id="2_wdtqy"]
+
+[node name="StartScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tqsle")
+
+[node name="StartButton" type="Button" parent="."]
+layout_mode = 2
+offset_left = 835.0
+offset_top = 720.0
+offset_right = 1085.0
+offset_bottom = 780.0
+focus_neighbor_bottom = NodePath("../QuitButton")
+theme_override_font_sizes/font_size = 36
+text = "Start"
+
+[node name="QuitButton" type="Button" parent="."]
+layout_mode = 2
+offset_left = 835.0
+offset_top = 806.0
+offset_right = 1085.0
+offset_bottom = 866.0
+focus_neighbor_top = NodePath("../StartButton")
+theme_override_font_sizes/font_size = 36
+text = "Quit"
+
+[node name="Logo" type="Sprite2D" parent="."]
+position = Vector2(963, 293)
+texture = ExtResource("2_wdtqy")

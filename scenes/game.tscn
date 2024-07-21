@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxl0a66bln7vi"]
+[gd_scene load_steps=2 format=3 uid="uid://dxl0a66bln7vi"]
 
-[ext_resource type="PackedScene" uid="uid://d2wkc4ex1mueg" path="res://scenes/level_01.tscn" id="1_5ug37"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_d4yg3"]
 
 [node name="Game" type="Control"]
@@ -27,7 +26,7 @@ handle_input_locally = false
 size = Vector2i(960, 1080)
 render_target_update_mode = 4
 
-[node name="Level" parent="HBoxContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_5ug37")]
+[node name="Level" type="Node2D" parent="HBoxContainer/SubViewportContainer/SubViewport"]
 
 [node name="Camera2D" type="Camera2D" parent="HBoxContainer/SubViewportContainer/SubViewport"]
 position = Vector2(250, 790)

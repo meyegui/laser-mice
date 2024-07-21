@@ -90,8 +90,8 @@ _data = {
 [node name="GameOver" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 script = ExtResource("1_3lwnl")
 
 [node name="Background" type="ColorRect" parent="."]

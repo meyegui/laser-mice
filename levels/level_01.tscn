@@ -1,12 +1,12 @@
 [gd_scene load_steps=7 format=3 uid="uid://d2wkc4ex1mueg"]
 
-[ext_resource type="PackedScene" uid="uid://cyihqhuv8y634" path="res://scenes/laser_mouse.tscn" id="1_r7qp5"]
-[ext_resource type="PackedScene" uid="uid://bdjjpsdtuetdn" path="res://scenes/home.tscn" id="2_j7cyh"]
-[ext_resource type="PackedScene" uid="uid://bynpjr18b2led" path="res://scenes/cheese.tscn" id="3_6wcfd"]
-[ext_resource type="Texture2D" uid="uid://dg83j2b27m6jo" path="res://sprites/Tile-Set.png" id="4_0uynl"]
+[ext_resource type="PackedScene" uid="uid://bdjjpsdtuetdn" path="res://scenes/home.tscn" id="1_jk7lr"]
+[ext_resource type="PackedScene" uid="uid://cyihqhuv8y634" path="res://scenes/laser_mouse.tscn" id="2_pld1p"]
+[ext_resource type="PackedScene" uid="uid://bynpjr18b2led" path="res://scenes/cheese.tscn" id="3_4egmc"]
+[ext_resource type="Texture2D" uid="uid://dg83j2b27m6jo" path="res://sprites/Tile-Set.png" id="4_honyf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_duf1v"]
-texture = ExtResource("4_0uynl")
+texture = ExtResource("4_honyf")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -35,25 +35,25 @@ sources/1 = SubResource("TileSetAtlasSource_duf1v")
 
 [node name="Homes" type="Node2D" parent="."]
 
-[node name="Home0" parent="Homes" instance=ExtResource("2_j7cyh")]
+[node name="Home0" parent="Homes" instance=ExtResource("1_jk7lr")]
 position = Vector2(250, 790)
 
-[node name="Home1" parent="Homes" instance=ExtResource("2_j7cyh")]
+[node name="Home1" parent="Homes" instance=ExtResource("1_jk7lr")]
 position = Vector2(1670, 250)
 player_id = 1
 
 [node name="Players" type="Node2D" parent="."]
 
-[node name="Guigui" parent="Players" instance=ExtResource("1_r7qp5")]
+[node name="Guigui" parent="Players" instance=ExtResource("2_pld1p")]
 position = Vector2(250, 790)
 rotation = 1.5708
 
-[node name="Pépette" parent="Players" instance=ExtResource("1_r7qp5")]
+[node name="Pépette" parent="Players" instance=ExtResource("2_pld1p")]
 position = Vector2(1670, 250)
 rotation = -1.5708
 player_id = 1
 
-[node name="Cheese" parent="." instance=ExtResource("3_6wcfd")]
+[node name="Cheese" parent="." instance=ExtResource("3_4egmc")]
 position = Vector2(960, 540)
 
 [node name="TileMap" type="TileMap" parent="."]

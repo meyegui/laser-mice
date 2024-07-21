@@ -20,3 +20,12 @@
 	  player 1, red for player 2).
 - [ ] There may be enemies or other obstacles (idea to explore), especially if
 	  the game is too easy.
+- [ ] Pickable power-ups:
+	  - [ ] Increased speed
+	  - [ ] Triple laser
+	  - [ ] Temporary invincibility
+- [x] Start Screen UI
+	  - [ ] Tutorial (explain controls)
+- [x] Game Over UI
+	  - [ ] “Next Level” button
+- [x] Split-screen with two cameras
