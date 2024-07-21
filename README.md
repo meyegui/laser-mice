@@ -27,5 +27,5 @@
 - [x] Start Screen UI
 	  - [ ] Tutorial (explain controls)
 - [x] Game Over UI
-	  - [ ] “Next Level” button
+	  - [x] “Next Level” button
 - [x] Split-screen with two cameras
