@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://bcum4ad4774th"]
 
-[ext_resource type="Script" path="res://scripts/game_over.gd" id="1_3lwnl"]
-[ext_resource type="Texture2D" uid="uid://dgqnqa2lqpey5" path="res://sprites/particles/Particle-Star.png" id="2_8yebu"]
-[ext_resource type="Texture2D" uid="uid://dt1s76sfx8xdy" path="res://sprites/particles/Particle-X.png" id="3_68i3r"]
-[ext_resource type="Texture2D" uid="uid://dsvkqvwjmeipw" path="res://sprites/particles/Particle-Dot.png" id="4_dubil"]
+[ext_resource type="Script" path="res://scripts/game_over_screen.gd" id="1_ktyi7"]
+[ext_resource type="Texture2D" uid="uid://dgqnqa2lqpey5" path="res://sprites/particles/Particle-Star.png" id="2_niorh"]
+[ext_resource type="Texture2D" uid="uid://dt1s76sfx8xdy" path="res://sprites/particles/Particle-X.png" id="3_uhjxs"]
+[ext_resource type="Texture2D" uid="uid://dsvkqvwjmeipw" path="res://sprites/particles/Particle-Dot.png" id="4_s7i67"]
 
 [sub_resource type="Curve" id="Curve_qivs3"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.108939, 0.867221), 0.0, 0.0, 0, 0, Vector2(0.248603, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -48,7 +48,19 @@ tracks/2/path = NodePath("QuitButton:scale")
 tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(1.4, 1.9, 2),
+"times": PackedFloat32Array(1.1, 1.6, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("NextLevelButton:scale")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5, 1, 1.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(1.2, 1.2), Vector2(1, 1)]
@@ -66,7 +78,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -90,7 +102,19 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1.2, 1.2)]
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("NextLevelButton:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_grwsq"]
@@ -99,12 +123,12 @@ _data = {
 "RESET": SubResource("Animation_o1w4x")
 }
 
-[node name="GameOver" type="Control"]
+[node name="GameOverScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
-script = ExtResource("1_3lwnl")
+script = ExtResource("1_ktyi7")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 0
@@ -119,7 +143,7 @@ amount = 20
 lifetime = 3.0
 one_shot = true
 explosiveness = 1.0
-texture = ExtResource("2_8yebu")
+texture = ExtResource("2_niorh")
 spread = 180.0
 gravity = Vector2(2.08165e-12, 2.08165e-12)
 initial_velocity_min = 50.0
@@ -136,11 +160,12 @@ hue_variation_curve = SubResource("Curve_70idy")
 
 [node name="Boom2" type="CPUParticles2D" parent="."]
 position = Vector2(960, 285)
+emitting = false
 amount = 20
 lifetime = 3.0
 one_shot = true
 explosiveness = 1.0
-texture = ExtResource("3_68i3r")
+texture = ExtResource("3_uhjxs")
 spread = 180.0
 gravity = Vector2(2.08165e-12, 2.08165e-12)
 initial_velocity_min = 50.0
@@ -162,7 +187,7 @@ amount = 20
 lifetime = 3.0
 one_shot = true
 explosiveness = 1.0
-texture = ExtResource("4_dubil")
+texture = ExtResource("4_s7i67")
 spread = 180.0
 gravity = Vector2(2.08165e-12, 2.08165e-12)
 initial_velocity_min = 50.0
@@ -182,6 +207,7 @@ layout_mode = 0
 offset_top = 200.0
 offset_right = 1920.0
 offset_bottom = 350.0
+scale = Vector2(2.08165e-12, 2.08165e-12)
 pivot_offset = Vector2(960, 75)
 theme_override_font_sizes/font_size = 100
 text = "Player wins!"
@@ -192,18 +218,30 @@ vertical_alignment = 1
 libraries = {
 "": SubResource("AnimationLibrary_grwsq")
 }
-autoplay = "GameOver"
+
+[node name="NextLevelButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 835.0
+offset_top = 660.0
+offset_right = 1085.0
+offset_bottom = 724.0
+scale = Vector2(2.08165e-12, 2.08165e-12)
+pivot_offset = Vector2(125, 32)
+focus_neighbor_bottom = NodePath("../PlayAgainButton")
+theme_override_font_sizes/font_size = 36
+text = "Next Level"
 
 [node name="PlayAgainButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 835.0
-offset_top = 720.0
-offset_right = 1085.0
-offset_bottom = 784.0
+offset_left = 850.0
+offset_top = 738.0
+offset_right = 1070.0
+offset_bottom = 794.0
 scale = Vector2(2.08165e-12, 2.08165e-12)
 pivot_offset = Vector2(125, 32)
+focus_neighbor_top = NodePath("../NextLevelButton")
 focus_neighbor_bottom = NodePath("../QuitButton")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 30
 text = "Play Again"
 
 [node name="QuitButton" type="Button" parent="."]
@@ -212,7 +250,7 @@ offset_left = 850.0
 offset_top = 804.0
 offset_right = 1070.0
 offset_bottom = 860.0
-scale = Vector2(1.2, 1.2)
+scale = Vector2(2.08165e-12, 2.08165e-12)
 pivot_offset = Vector2(110, 28)
 focus_neighbor_top = NodePath("../PlayAgainButton")
 theme_override_font_sizes/font_size = 30

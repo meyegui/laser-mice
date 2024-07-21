@@ -73,7 +73,7 @@ func _physics_process(delta: float) -> void:
 	if health == 0:
 		die(delta)
 
-	if Common.game_over:
+	if Common.is_game_over():
 		return
 
 	# Make the mouse look in the right direction
@@ -87,7 +87,7 @@ func _process(_delta: float) -> void:
 	# Fix positioning of health points
 	hp.global_rotation = 0
 
-	if Common.game_over:
+	if Common.is_game_over():
 		return
 
 	var shoot_action := "player%d_shoot" % player_id

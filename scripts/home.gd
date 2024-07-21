@@ -6,7 +6,6 @@ extends Area2D
 
 @onready var illustration: ColorRect = $Illustration
 @onready var win_sound_player: AudioStreamPlayer2D = $WinSoundPlayer
-@onready var game_over: PackedScene = load("res://scenes/game_over.tscn")
 
 func _ready() -> void:
 	# Connect signals
@@ -31,8 +30,4 @@ func on_area_entered(area: Area2D) -> void:
 	win_sound_player.play() # todo: record "Brrravooo! 👏🏻" audio
 
 	# Show "Game Over" screen
-	var game_over_screen := game_over.instantiate()
-	game_over_screen.winner_name = area.holder.name
-	game_over_screen.winner_id = area.holder.player_id
-	get_tree().current_scene.add_child(game_over_screen)
-	game_over_screen.emit_boom()
+	Common.show_game_over_screen(area.holder.name, area.holder.player_id)

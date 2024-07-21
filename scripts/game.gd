@@ -1,4 +1,7 @@
+class_name Game
 extends Control
+
+var current_level: int = 1
 
 @onready var viewports: Array[SubViewport] = [
 	$HBoxContainer/SubViewportContainer/SubViewport,
@@ -11,10 +14,9 @@ extends Control
 ]
 
 func _ready() -> void:
-	if Common.level == null:
-		assert(false, "No level is loaded")
+	Common.game = self
 
-	set_level(Common.level, true)
+	_load_level()
 
 	# Share the world across viewports
 	if count_players() == 0:
@@ -27,7 +29,11 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	_position_cameras()
 
-# Make cameras track players
+	# @xxx
+	if Input.is_key_pressed(KEY_T):
+		Common.show_game_over_screen("Guigui", 0)
+
+## Make cameras track players.
 func _position_cameras() -> void:
 	for i in range(viewports.size()):
 		var camera: Camera2D = cameras[i]
@@ -42,24 +48,16 @@ func _position_cameras() -> void:
 
 		camera.global_position = player.global_position
 
-func set_level(level: Node2D, force: bool=false) -> void:
-	var current_level: Node2D = $HBoxContainer/SubViewportContainer/SubViewport/Level
-
-	if not force:
-		if Common.level == level:
-			print("set_level: cancel because same")
-			return
-
-		if level == null:
-			print("set_level: cancel because null")
-			return
+## Reset the current level to a new instance.
+func _load_level() -> void:
+	var scene: PackedScene = load("res://levels/level_%d.tscn" % current_level)
+	var level: Node2D = scene.instantiate()
+	level.name = "Level"
+	$HBoxContainer/SubViewportContainer/SubViewport/Level.free()
+	$HBoxContainer/SubViewportContainer/SubViewport.add_child(level)
 
 	Common.level = level
-
-	if level != null:
-		Common.level.name = "Level"
-		current_level.free()
-		$HBoxContainer/SubViewportContainer/SubViewport.add_child(Common.level)
+	Common.hide_game_over_screen()
 
 func get_player(player_id: int) -> LaserMouse:
 	var players: Node = $HBoxContainer/SubViewportContainer/SubViewport/Level/Players
@@ -73,3 +71,8 @@ func get_player(player_id: int) -> LaserMouse:
 func count_players() -> int:
 	var players: Node = $HBoxContainer/SubViewportContainer/SubViewport/Level/Players
 	return players.get_child_count()
+
+## Loads the next level.
+func next_level() -> void:
+	current_level += 1
+	_load_level()

@@ -13,7 +13,6 @@ func _ready() -> void:
 	start_button.grab_focus()
 
 func on_start_pressed() -> void:
-	Common.level = load("res://levels/level_01.tscn").instantiate()
 	get_tree().change_scene_to_packed(GAME)
 
 func on_quit_pressed() -> void:
