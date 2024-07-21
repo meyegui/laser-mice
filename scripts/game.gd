@@ -29,9 +29,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	_position_cameras()
 
-	# @xxx
-	if Input.is_key_pressed(KEY_T):
-		Common.show_game_over_screen("Guigui", 0)
+	# @xxx Debug: Ctrl+T to finish level
+	if Input.is_key_pressed(KEY_CTRL) and Input.is_key_pressed(KEY_T):
+		Common.show_game_over_screen("God", 2)
 
 ## Make cameras track players.
 func _position_cameras() -> void:

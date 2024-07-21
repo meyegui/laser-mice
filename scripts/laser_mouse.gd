@@ -1,3 +1,4 @@
+@tool
 class_name LaserMouse
 extends CharacterBody2D
 
@@ -38,22 +39,25 @@ var last_hurt: int = -DAMAGE_THRESHOLD
 @onready var laser_beam: PackedScene = load("res://scenes/laser_beam.tscn")
 
 func _ready() -> void:
-	# Record spawn position
-	spawn_point = global_position
-	spawn_rotation = global_rotation
+	if not Engine.is_editor_hint():
+		# Record spawn position
+		spawn_point = global_position
+		spawn_rotation = global_rotation
 
-	# Set up axes
-	for axis: String in ["up", "left", "down", "right"]:
-		axes[axis] = "player%d_%s" % [player_id, axis]
+		# Set up axes
+		for axis: String in ["up", "left", "down", "right"]:
+			axes[axis] = "player%d_%s" % [player_id, axis]
 
 	# Color HP & lasers according to player ID
 	var color := Common.get_color(player_id)
 
-	# illustration.modulate = color
 	hp.modulate = color
 	laser_source.modulate = color
 
 func _physics_process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+
 	var direction := Vector2(
 		Input.get_axis(axes["left"], axes["right"]),
 		Input.get_axis(axes["up"], axes["down"]),
@@ -84,6 +88,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _process(_delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+
 	# Fix positioning of health points
 	hp.global_rotation = 0
 

@@ -31,13 +31,11 @@ func on_body_entered(body: Node2D) -> void:
 	if not body is LaserMouse:
 		return
 
+	# Mice can't hurt themselves
+	if body.name == emitter:
+		return
+
 	body.hurt(emitter, self.name, POWER)
-	# print("%s attacked %s with %s! -> health = %d" % [
-	# 	emitter.name,
-	# 	body.name,
-	# 	name,
-	# 	body.health,
-	# ])
 
 	timer.stop()
 	queue_free()

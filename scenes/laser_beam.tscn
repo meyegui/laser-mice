@@ -12,6 +12,7 @@ collision_layer = 2
 script = ExtResource("1_o54yh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -10
 texture = ExtResource("2_wgi6u")
 
 [node name="Timer" type="Timer" parent="."]
