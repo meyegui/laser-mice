@@ -6,6 +6,7 @@ const SPEED: float = 480.0 # px/s
 const SHOOT_RATE: int = 150 # milliseconds
 const DAMAGE_THRESHOLD: int = 1500 # milliseconds
 const DYING_SPEED: float = 4.0
+const TRIPLE_LASER_ANGLE: float = deg_to_rad(15)
 
 @export var player_id: int = 0
 
@@ -31,12 +32,15 @@ var cheese: Cheese
 var last_shot: int = -SHOOT_RATE
 var last_hurt: int = -DAMAGE_THRESHOLD
 
+var _abilities: Dictionary = {
+	"TRIPLE_LASER": false,
+}
+
 @onready var illustration: Node2D = $Illustration
 @onready var laser_source: Node2D = $LaserSource
 @onready var hp: Node2D = $HP
 @onready var animation: AnimationPlayer = $AnimationPlayer
 @onready var pew_sound_player: AudioStreamPlayer = $PewSoundPlayer
-@onready var laser_beam: PackedScene = load("res://scenes/laser_beam.tscn")
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
@@ -52,6 +56,7 @@ func _ready() -> void:
 	var color := Common.get_color(player_id)
 
 	hp.modulate = color
+	illustration.get_node("Tail").modulate = color
 	laser_source.modulate = color
 
 func _physics_process(delta: float) -> void:
@@ -118,13 +123,31 @@ func shoot(force: bool=false) -> void:
 	pew_sound_player.play()
 
 	# Instantiate laser beam
-	var pew_pew: LaserBeam = laser_beam.instantiate()
-	pew_pew.emitter = self.name
-	pew_pew.modulate = laser_source.modulate # match mouse color
-	pew_pew.global_position = laser_source.global_position
-	pew_pew.rotation = rotation
-	Common.level.add_child(pew_pew)
 	last_shot = now
+	var pew_pew: LaserBeam = LaserBeam.make(
+		name,
+		laser_source.modulate,
+		global_position,
+		rotation
+	)
+	Common.level.add_child(pew_pew)
+
+	if _abilities["TRIPLE_LASER"]:
+		pew_pew = LaserBeam.make(
+			name,
+			laser_source.modulate,
+			global_position,
+			rotation - TRIPLE_LASER_ANGLE
+		)
+		Common.level.add_child(pew_pew)
+
+		pew_pew = LaserBeam.make(
+			name,
+			laser_source.modulate,
+			global_position,
+			rotation + TRIPLE_LASER_ANGLE
+		)
+		Common.level.add_child(pew_pew)
 
 func hurt(attacker: String, weapon: String, power: int) -> void:
 	var now := Time.get_ticks_msec()
@@ -171,6 +194,12 @@ func die(delta: float) -> void:
 		global_rotation = spawn_rotation
 		health = 3
 		scale = Vector2(1, 1)
+
+func grant_ability(ability: String) -> void:
+	_abilities[ability] = true
+
+func revoke_ability(ability: String) -> void:
+	_abilities[ability] = false
 
 @warning_ignore("shadowed_variable", "shadowed_variable_base_class")
 static func spawn(

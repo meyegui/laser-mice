@@ -1,29 +1,31 @@
 class_name LaserBeam
 extends Area2D
 
+const SCENE: PackedScene = preload ("res://scenes/laser_beam.tscn")
+
 const SPEED := 40
 const POWER := 1
 
-var emitter: String
-var direction: Vector2
+var _emitter: String
+var _direction: Vector2
 
-@onready var timer: Timer = $Timer
+@onready var _timer: Timer = $Timer
 
 func _ready() -> void:
 	name = "LaserBeam"
 
 	# Connect signals
-	body_entered.connect(on_body_entered)
-	timer.timeout.connect(on_timer_timeout)
+	body_entered.connect(_on_body_entered)
+	_timer.timeout.connect(_on_timer_timeout)
 
-	# Set movement direction
+	# Set movement _direction
 	var orientation := rotation - deg_to_rad(90)
-	direction = Vector2(cos(orientation), sin(orientation))
+	_direction = Vector2(cos(orientation), sin(orientation))
 
 func _physics_process(_delta: float) -> void:
-	position += direction * SPEED
+	position += _direction * SPEED
 
-func on_body_entered(body: Node2D) -> void:
+func _on_body_entered(body: Node2D) -> void:
 	if body is TileMap:
 		queue_free()
 		return
@@ -32,13 +34,27 @@ func on_body_entered(body: Node2D) -> void:
 		return
 
 	# Mice can't hurt themselves
-	if body.name == emitter:
+	if body.name == _emitter:
 		return
 
-	body.hurt(emitter, self.name, POWER)
+	body.hurt(_emitter, self.name, POWER)
 
-	timer.stop()
+	_timer.stop()
 	queue_free()
 
-func on_timer_timeout() -> void:
+func _on_timer_timeout() -> void:
 	queue_free()
+
+static func make(
+	p_emitter: String,
+	p_modulate: Color,
+	p_position: Vector2,
+	p_rotation: float
+) -> LaserBeam:
+	var pew_pew: LaserBeam = SCENE.instantiate()
+	pew_pew._emitter = p_emitter
+	pew_pew.modulate = p_modulate # match mouse color
+	pew_pew.global_position = p_position
+	pew_pew.rotation = p_rotation
+
+	return pew_pew
